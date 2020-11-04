@@ -1,8 +1,13 @@
 public class Origin {
-    int x,y;
+    int i,j;
 
-    Origin(int x,int y){
-        this.x = x;
-        this.y = y;
+    Origin(int i,int j){
+        this.i = i;
+        this.j = j;
     };
+
+    @Override
+    public String toString() {
+        return "i : $i , j = $j";
+    }
 }
