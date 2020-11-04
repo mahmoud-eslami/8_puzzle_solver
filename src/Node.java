@@ -17,7 +17,8 @@ public class Node {
 
     @Override
     public String toString() {
-        return "g(n) : $gOfn , h(n) : $hOfn , nodeMembers : $nodeInfo , actionSeq : $actionSequence";
+        return "g(n) = " + gOfn + "| h(n) = " + hOfn + "| nodeMembers = " + nodeInfo + "| actionSeq = "
+                + actionSequence;
     }
 
 }
