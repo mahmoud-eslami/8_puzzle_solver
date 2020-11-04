@@ -1,13 +1,14 @@
-public class Origin {
-    int i,j;
+public class CustomOrigin {
+    public int i, j;
 
-    Origin(int i,int j){
+    public CustomOrigin(int i, int j) {
         this.i = i;
         this.j = j;
-    };
+    }
 
     @Override
     public String toString() {
         return "i : $i , j = $j";
     }
+
 }
