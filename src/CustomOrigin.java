@@ -1,6 +1,9 @@
 public class CustomOrigin {
     public int i, j;
 
+    public CustomOrigin() {
+    }
+
     public CustomOrigin(int i, int j) {
         this.i = i;
         this.j = j;
