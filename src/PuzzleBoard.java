@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public class PuzzleBoard {
 
-    public static void SolvePuzzle(Node initialNode, Node goalNode) {
+    public static void SolvePuzzle(Node initialNode, Node goalNode) throws Exception{
 
         System.out.println("method called");
 
@@ -12,8 +12,7 @@ public class PuzzleBoard {
 
         PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(1200, (a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
 
-        Node fatherNode = new Node(initialNode.hOfn, initialNode.gOfn, initialNode.nodeInfo, initialNode.actionSequence,
-                initialNode.freeSpaceOrigin);
+        Node fatherNode = initialNode.clone();
         fatherNode.hOfn = calculateMissPlace(initialNode.nodeInfo, goalNode.nodeInfo);
         fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
         NodesQueue.add(fatherNode);
@@ -21,6 +20,7 @@ public class PuzzleBoard {
         boolean queueIsNotEmpty = !NodesQueue.isEmpty();
         while (queueIsNotEmpty) {
             Node smallestChild = NodesQueue.poll();
+
             // System.out.println(smallestChild.nodeInfo);
             // CustomPrinter.NodeMemberPrinter(smallestChild);
 

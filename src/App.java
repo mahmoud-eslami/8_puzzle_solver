@@ -17,22 +17,22 @@ public class App {
         //     System.out.println("Can't solve this puzzle ! becuase invention is odd :(");
         // }
 
-        Node up = Movement.up(initialNode, goalNode);
+        Node up = Movement.up(initialNode.clone(), goalNode);
         CustomPrinter.NodeMemberPrinter(up);
         CustomPrinter.printAactionSequnce(up);
         CustomPrinter.printNodeInformation(up);
 
-        Node down = Movement.down(initialNode, goalNode);
+        Node down = Movement.down(initialNode.clone(), goalNode);
         CustomPrinter.NodeMemberPrinter(down);
         CustomPrinter.printAactionSequnce(down);
         CustomPrinter.printNodeInformation(down);
 
-        Node left = Movement.left(initialNode, goalNode);
+        Node left = Movement.left(initialNode.clone(), goalNode);
         CustomPrinter.NodeMemberPrinter(left);
         CustomPrinter.printAactionSequnce(left);
         CustomPrinter.printNodeInformation(left);
 
-        Node right = Movement.right(initialNode, goalNode);
+        Node right = Movement.right(initialNode.clone(), goalNode);
         CustomPrinter.NodeMemberPrinter(right);
         CustomPrinter.printAactionSequnce(right);
         CustomPrinter.printNodeInformation(right);

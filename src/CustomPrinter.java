@@ -34,6 +34,7 @@ public class CustomPrinter {
     static void printNodeInformation(Node node) {
         System.out.println();
         System.out.println("G(n) = " + node.gOfn + " H(n) = " + node.hOfn + " F(n) = " + (node.gOfn + node.hOfn) + " ");
+        System.out.println("origin.i = " + node.freeSpaceOrigin.i + " origin.j = " + node.freeSpaceOrigin.j);
         System.out.println();
     }
 }

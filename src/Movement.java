@@ -30,7 +30,7 @@ public class Movement {
         return tempNode;
     }
 
-    public static Node left(Node initialNode, Node goalNode) {
+    public static Node left(Node initialNode, Node goalNode){
         Node tempNode = initialNode;
         int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
         int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j - 1];
@@ -45,7 +45,7 @@ public class Movement {
         return tempNode;
     }
 
-    public static Node right(Node initialNode, Node goalNode) {
+    public static Node right(Node initialNode, Node goalNode){
         Node tempNode = initialNode;
         int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
         int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j + 1];
