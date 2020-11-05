@@ -1,5 +1,6 @@
 public class CustomPrinter {
     static void welcomeInfoPrinter() {
+        System.out.println();
         System.out.println("**************************************");
         System.out.println("**     Welcome to 8 puzzle game     **");
         System.out.println("**************************************");
@@ -7,6 +8,7 @@ public class CustomPrinter {
     }
 
     static void gameTutorial() {
+        System.out.println();
         System.out.println("**********  Game Tutorial  ***********");
         System.out.println("- please start number of oprateion :");
         System.out.println("1 - start game use a test puzzle .");
@@ -24,10 +26,13 @@ public class CustomPrinter {
     }
 
     static void printAactionSequnce(Node node) {
+        System.out.println();
         System.out.println(node.actionSequence);
     }
 
     static void printNodeInformation(Node node) {
+        System.out.println();
         System.out.println("G(n) = " + node.gOfn + " H(n) = " + node.hOfn + " F(n) = " + (node.gOfn + node.hOfn) + " ");
+        System.out.println();
     }
 }

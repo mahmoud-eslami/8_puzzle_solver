@@ -3,7 +3,9 @@ import java.util.List;
 
 public class PuzzleBoard {
 
-    public boolean isSolvable(Node node) {
+    public static void SolvePuzzle() {}
+
+    public static boolean isSolvable(Node node) {
         int counter = 0;
         List<Integer> arrayLsit = new ArrayList<Integer>();
 
@@ -26,11 +28,11 @@ public class PuzzleBoard {
         return (counter % 2 == 0);
     }
 
-    public static int calculateMissPlace(Node initialNode, Node goalNode) {
+    public static int calculateMissPlace(int[][] initialNode, int[][] goalNode) {
         int missPlace = 0;
-        for (int i = 0; i < initialNode.nodeInfo.length; i++) {
-            for (int j = 0; j < initialNode.nodeInfo[i].length; j++) {
-                if (initialNode.nodeInfo[i][j] != goalNode.nodeInfo[i][j]) {
+        for (int i = 0; i < initialNode.length; i++) {
+            for (int j = 0; j < initialNode[i].length; j++) {
+                if (initialNode[i][j] != goalNode[i][j]) {
                     missPlace++;
                 }
             }

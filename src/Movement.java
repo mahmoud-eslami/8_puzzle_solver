@@ -16,7 +16,7 @@ public class Movement {
             tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
             tempNode.actionSequence.add("U");
-            tempNode.hOfn = PuzzleBoard.calculateMissPlace(initialNode, goalNode);
+            tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
             tempNode.gOfn += 1;
             tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
 
@@ -29,7 +29,7 @@ public class Movement {
             tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
             tempNode.actionSequence.add("D");
-            tempNode.hOfn = PuzzleBoard.calculateMissPlace(initialNode, goalNode);
+            tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
             tempNode.gOfn += 1;
             tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
 
@@ -42,7 +42,7 @@ public class Movement {
             tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
             tempNode.actionSequence.add("L");
-            tempNode.hOfn = PuzzleBoard.calculateMissPlace(initialNode, goalNode);
+            tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
             tempNode.gOfn += 1;
             tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
 
@@ -55,7 +55,7 @@ public class Movement {
             tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
             tempNode.actionSequence.add("R");
-            tempNode.hOfn = PuzzleBoard.calculateMissPlace(initialNode, goalNode);
+            tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
             tempNode.gOfn += 1;
             tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
 
