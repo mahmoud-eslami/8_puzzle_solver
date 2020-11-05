@@ -1,7 +1,11 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Node implements Cloneable {
+    
+    static enum SolveHuristic {
+        MISS_PLACE, MANHATTAN_DISTANCE,
+    }
+
     public int hOfn, gOfn;
     public int[][] nodeInfo = new int[3][3];
     public ArrayList<String> actionSequence;

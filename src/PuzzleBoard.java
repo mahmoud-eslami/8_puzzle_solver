@@ -6,14 +6,14 @@ public class PuzzleBoard {
 
     public static void SolvePuzzle(Node initialNode, Node goalNode) throws Exception{
 
-        System.out.println("method called");
+        System.out.println("Wait to solve ...");
 
         String[] movementType = { "U", "D", "L", "R" };
 
-        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(1200, (a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
+        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(800, (a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
 
         Node fatherNode = initialNode.clone();
-        fatherNode.hOfn = calculateMissPlace(initialNode.nodeInfo, goalNode.nodeInfo);
+        fatherNode.hOfn = calculateMissPlace(fatherNode.nodeInfo, goalNode.nodeInfo);
         fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
         NodesQueue.add(fatherNode);
 
@@ -35,47 +35,31 @@ public class PuzzleBoard {
                 switch (movementType[i]) {
                     case "U":
                         if (smallestChild.freeSpaceOrigin.i > 0) {
-                            System.out.println("up");
-
-                            Node upMoveChild = Movement.up(smallestChild, goalNode);
+                            Node upMoveChild = Movement.up(smallestChild.clone(), goalNode);
                             upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(upMoveChild);
-                            CustomPrinter.NodeMemberPrinter(upMoveChild);
-
                         }
 
                         break;
                     case "D":
                         if (smallestChild.freeSpaceOrigin.i < 2) {
-                            System.out.println("down");
-
-                            Node downMoveChild = Movement.down(smallestChild, goalNode);
+                            Node downMoveChild = Movement.down(smallestChild.clone(), goalNode);
                             downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(downMoveChild);
-                            CustomPrinter.NodeMemberPrinter(downMoveChild);
-
                         }
                         break;
                     case "L":
                         if (smallestChild.freeSpaceOrigin.j > 0) {
-                            System.out.println("left");
-
-                            Node leftMoveChild = Movement.left(smallestChild, goalNode);
+                            Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode);
                             leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(leftMoveChild);
-                            CustomPrinter.NodeMemberPrinter(leftMoveChild);
-
                         }
                         break;
                     case "R":
                         if (smallestChild.freeSpaceOrigin.j < 2) {
-                            System.out.println("right");
-
-                            Node rightMoveChild = Movement.right(smallestChild, goalNode);
+                            Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode);
                             rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(rightMoveChild);
-                            CustomPrinter.NodeMemberPrinter(rightMoveChild);
-
                         }
                         break;
                 }
