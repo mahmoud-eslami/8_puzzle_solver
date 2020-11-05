@@ -1,9 +1,39 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class PuzzleBoard {
 
-    public static void SolvePuzzle() {}
+    public static void SolvePuzzle(Node initialNode, Node goalNode) {
+
+        Movement.MovementType[] movementType = { Movement.MovementType.UP, Movement.MovementType.DOWN,
+            Movement.MovementType.LEFT, Movement.MovementType.RIGHT };
+
+        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(1200,(a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
+
+        Node fatherNode = initialNode;
+        fatherNode.hOfn = calculateMissPlace(initialNode.nodeInfo, goalNode.nodeInfo);
+        NodesQueue.add(fatherNode);
+
+        boolean queueIsNotEmpty = !NodesQueue.isEmpty();
+        while (queueIsNotEmpty) {
+            Node smallestChild = NodesQueue.poll();
+
+            if (calculateMissPlace(smallestChild.nodeInfo, goalNode.nodeInfo) == 0) {
+                CustomPrinter.NodeMemberPrinter(smallestChild);
+                CustomPrinter.printAactionSequnce(smallestChild);
+                CustomPrinter.printNodeInformation(smallestChild);
+                return;
+            }
+
+            for (int i = 0; i < movementType.length; i++) {
+                Node newChild = Movement.move(smallestChild, goalNode, movementType[i]);
+                newChild.hOfn = calculateMissPlace(newChild.nodeInfo, goalNode.nodeInfo);
+                NodesQueue.add(newChild);
+            }
+        }
+        ;
+    }
 
     public static boolean isSolvable(Node node) {
         int counter = 0;

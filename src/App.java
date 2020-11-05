@@ -10,10 +10,7 @@ public class App {
                 actionSequence, PuzzleBoard.findFreeSpaceOrigin(testNodeInfo));
 
         if (PuzzleBoard.isSolvable(initialNode)) {
-            PuzzleBoard.SolvePuzzle();
-            CustomPrinter.NodeMemberPrinter(initialNode);
-            CustomPrinter.printAactionSequnce(initialNode);
-            CustomPrinter.printNodeInformation(initialNode);
+            PuzzleBoard.SolvePuzzle(initialNode, goalNode);
         } else {
             System.out.println();
             System.out.println("Can't solve this puzzle ! becuase invention is odd :(");

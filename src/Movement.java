@@ -1,6 +1,6 @@
 public class Movement {
 
-    enum MovementType {
+    static enum MovementType {
         UP, DOWN, LEFT, RIGHT
     }
 
