@@ -1,65 +1,62 @@
 public class Movement {
 
-    static enum MovementType {
-        UP, DOWN, LEFT, RIGHT
+    public static Node up(Node initialNode, Node goalNode) {
+        Node tempNode = initialNode;
+        int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
+        int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i - 1][tempNode.freeSpaceOrigin.j];
+
+        tempNode.nodeInfo[tempNode.freeSpaceOrigin.i - 1][tempNode.freeSpaceOrigin.j] = freeSpaceMember;
+        tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
+
+        tempNode.actionSequence.add("U");
+        tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
+        tempNode.gOfn += 1;
+        tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
+        return tempNode;
     }
 
-    public static Node move(Node initialNode, Node goalNode, MovementType movementType) {
+    public static Node down(Node initialNode, Node goalNode) {
         Node tempNode = initialNode;
+        int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
+        int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i + 1][tempNode.freeSpaceOrigin.j];
 
-        if (movementType == MovementType.UP) {
+        tempNode.nodeInfo[tempNode.freeSpaceOrigin.i + 1][tempNode.freeSpaceOrigin.j] = freeSpaceMember;
+        tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
-            int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
-            int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i - 1][tempNode.freeSpaceOrigin.j];
+        tempNode.actionSequence.add("D");
+        tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
+        tempNode.gOfn += 1;
+        tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
+        return tempNode;
+    }
 
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i - 1][tempNode.freeSpaceOrigin.j] = freeSpaceMember;
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
+    public static Node left(Node initialNode, Node goalNode) {
+        Node tempNode = initialNode;
+        int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
+        int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j - 1];
 
-            tempNode.actionSequence.add("U");
-            tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
-            tempNode.gOfn += 1;
-            tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
+        tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j - 1] = freeSpaceMember;
+        tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
-        } else if (movementType == MovementType.DOWN) {
+        tempNode.actionSequence.add("L");
+        tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
+        tempNode.gOfn += 1;
+        tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
+        return tempNode;
+    }
 
-            int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
-            int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i + 1][tempNode.freeSpaceOrigin.j];
+    public static Node right(Node initialNode, Node goalNode) {
+        Node tempNode = initialNode;
+        int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
+        int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j + 1];
 
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i + 1][tempNode.freeSpaceOrigin.j] = freeSpaceMember;
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
+        tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j + 1] = freeSpaceMember;
+        tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
-            tempNode.actionSequence.add("D");
-            tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
-            tempNode.gOfn += 1;
-            tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
-
-        } else if (movementType == MovementType.LEFT) {
-
-            int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
-            int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j - 1];
-
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j - 1] = freeSpaceMember;
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
-
-            tempNode.actionSequence.add("L");
-            tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
-            tempNode.gOfn += 1;
-            tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
-
-        } else if (movementType == MovementType.RIGHT) {
-
-            int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
-            int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j + 1];
-
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j + 1] = freeSpaceMember;
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
-
-            tempNode.actionSequence.add("R");
-            tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
-            tempNode.gOfn += 1;
-            tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
-
-        }
+        tempNode.actionSequence.add("R");
+        tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
+        tempNode.gOfn += 1;
+        tempNode.freeSpaceOrigin = PuzzleBoard.findFreeSpaceOrigin(tempNode.nodeInfo);
         return tempNode;
     }
 }

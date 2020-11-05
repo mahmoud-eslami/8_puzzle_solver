@@ -19,7 +19,7 @@ public class PuzzleBoard {
         while (queueIsNotEmpty) {
             Node smallestChild = NodesQueue.poll();
 
-            if (calculateMissPlace(smallestChild.nodeInfo, goalNode.nodeInfo) == 0) {
+            if (smallestChild.hOfn == 0) {
                 CustomPrinter.NodeMemberPrinter(smallestChild);
                 CustomPrinter.printAactionSequnce(smallestChild);
                 CustomPrinter.printNodeInformation(smallestChild);

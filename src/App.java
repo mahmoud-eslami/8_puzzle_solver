@@ -9,11 +9,12 @@ public class App {
         Node initialNode = new Node(PuzzleBoard.calculateMissPlace(testNodeInfo, goalNodeInfo), 0, testNodeInfo,
                 actionSequence, PuzzleBoard.findFreeSpaceOrigin(testNodeInfo));
 
-        if (PuzzleBoard.isSolvable(initialNode)) {
-            PuzzleBoard.SolvePuzzle(initialNode, goalNode);
-        } else {
-            System.out.println();
-            System.out.println("Can't solve this puzzle ! becuase invention is odd :(");
-        }
+        // if (PuzzleBoard.isSolvable(initialNode)) {
+        //     PuzzleBoard.SolvePuzzle(initialNode, goalNode);
+        // } else {
+        //     System.out.println();
+        //     System.out.println("Can't solve this puzzle ! becuase invention is odd :(");
+        // }
+        Node up = Movement.move(initialNode, goalNode, Movement.MovementType.UP);
     }
 }
