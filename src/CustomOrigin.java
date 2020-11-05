@@ -11,7 +11,7 @@ public class CustomOrigin {
 
     @Override
     public String toString() {
-        return "i : $i , j = $j";
+        return "i : " + i + " , j = " + j;
     }
 
 }

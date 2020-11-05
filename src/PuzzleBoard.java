@@ -6,9 +6,11 @@ public class PuzzleBoard {
 
     public static void SolvePuzzle(Node initialNode, Node goalNode) {
 
-        String[] movementType = {"U","D","L","R"};
+        System.out.println("method called");
 
-        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(1200,(a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
+        String[] movementType = { "U", "D", "L", "R" };
+
+        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(1200, (a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
 
         Node fatherNode = initialNode;
         fatherNode.hOfn = calculateMissPlace(initialNode.nodeInfo, goalNode.nodeInfo);
@@ -17,6 +19,7 @@ public class PuzzleBoard {
         boolean queueIsNotEmpty = !NodesQueue.isEmpty();
         while (queueIsNotEmpty) {
             Node smallestChild = NodesQueue.poll();
+            System.out.println(smallestChild.actionSequence);
 
             if (smallestChild.hOfn == 0) {
                 CustomPrinter.NodeMemberPrinter(smallestChild);
@@ -26,12 +29,31 @@ public class PuzzleBoard {
             }
 
             for (int i = 0; i < movementType.length; i++) {
-                Node newChild = Movement.up(smallestChild, goalNode);
-                newChild.hOfn = calculateMissPlace(newChild.nodeInfo, goalNode.nodeInfo);
-                NodesQueue.add(newChild);
+                System.out.println("wave : " + i);
+                switch (movementType[i]) {
+                    case "U":
+                        Node upMoveChild = Movement.up(smallestChild, goalNode);
+                        upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
+                        NodesQueue.add(upMoveChild);
+                        break;
+                    case "D":
+                        Node downMoveChild = Movement.down(smallestChild, goalNode);
+                        downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
+                        NodesQueue.add(downMoveChild);
+                        break;
+                    case "L":
+                        Node leftMoveChild = Movement.left(smallestChild, goalNode);
+                        leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
+                        NodesQueue.add(leftMoveChild);
+                        break;
+                    case "R":
+                        Node rightMoveChild = Movement.right(smallestChild, goalNode);
+                        rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
+                        NodesQueue.add(rightMoveChild);
+                        break;
+                }
             }
-        }
-        ;
+        };
     }
 
     public static boolean isSolvable(Node node) {
