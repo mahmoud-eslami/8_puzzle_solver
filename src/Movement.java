@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Movement {
 
     enum MovementType {
@@ -32,9 +30,9 @@ public class Movement {
         } else if (movementType == MovementType.LEFT) {
 
             int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
-            int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i - 1][tempNode.freeSpaceOrigin.j];
+            int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j - 1];
 
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i - 1][tempNode.freeSpaceOrigin.j] = freeSpaceMember;
+            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j - 1] = freeSpaceMember;
             tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
             tempNode.actionSequence.add("L");
@@ -42,9 +40,9 @@ public class Movement {
         } else if (movementType == MovementType.RIGHT) {
 
             int freeSpaceMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j];
-            int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i - 1][tempNode.freeSpaceOrigin.j];
+            int targetMember = tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j + 1];
 
-            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i - 1][tempNode.freeSpaceOrigin.j] = freeSpaceMember;
+            tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j + 1] = freeSpaceMember;
             tempNode.nodeInfo[tempNode.freeSpaceOrigin.i][tempNode.freeSpaceOrigin.j] = targetMember;
 
             tempNode.actionSequence.add("R");
