@@ -26,7 +26,7 @@ public class PuzzleBoard {
         return (counter % 2 == 0);
     }
 
-    public int calculateMissPlace(Node initialNode, Node goalNode) {
+    public static int calculateMissPlace(Node initialNode, Node goalNode) {
         int missPlace = 0;
         for (int i = 0; i < initialNode.nodeInfo.length; i++) {
             for (int j = 0; j < initialNode.nodeInfo[i].length; j++) {
@@ -53,7 +53,7 @@ public class PuzzleBoard {
         return true;
     }
 
-    public CustomOrigin findFreeSpaceOrigin(int[][] nodeData) {
+    public static CustomOrigin findFreeSpaceOrigin(int[][] nodeData) {
         CustomOrigin freeSpaceOrigin = new CustomOrigin();
         for (int i = 0; i < nodeData.length; i++) {
             for (int j = 0; j < nodeData.length; j++) {
