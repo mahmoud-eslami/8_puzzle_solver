@@ -24,12 +24,7 @@ public class CustomPrinter {
     }
 
     static void printAactionSequnce(Node node) {
-        System.out.print("[ ");
-        for (int i = 0; i < node.actionSequence.length; i++) {
-            System.out.print(node.actionSequence[i] + " ");
-        }
-        System.out.print("]");
-        System.out.println();
+        System.out.println(node.actionSequence);
     }
 
     static void printNodeInformation(Node node) {

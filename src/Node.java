@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public class Node {
     public int hOfn, gOfn;
     public int[][] nodeInfo = {};
-    public String[] actionSequence;
+    public ArrayList<String> actionSequence;
     public CustomOrigin freeSpaceOrigin;
 
-    public Node(int hOfn, int gOfn, int[][] nodeInfo, String[] actionSequence, CustomOrigin freeSpaceOrigin) {
+    public Node(int hOfn, int gOfn, int[][] nodeInfo, ArrayList<String> actionSequence, CustomOrigin freeSpaceOrigin) {
         this.hOfn = hOfn;
         this.gOfn = gOfn;
         this.nodeInfo = new int[nodeInfo.length][];
