@@ -6,8 +6,7 @@ public class PuzzleBoard {
 
     public static void SolvePuzzle(Node initialNode, Node goalNode) {
 
-        Movement.MovementType[] movementType = { Movement.MovementType.UP, Movement.MovementType.DOWN,
-            Movement.MovementType.LEFT, Movement.MovementType.RIGHT };
+        String[] movementType = {"U","D","L","R"};
 
         PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(1200,(a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
 
@@ -27,7 +26,7 @@ public class PuzzleBoard {
             }
 
             for (int i = 0; i < movementType.length; i++) {
-                Node newChild = Movement.move(smallestChild, goalNode, movementType[i]);
+                Node newChild = Movement.up(smallestChild, goalNode);
                 newChild.hOfn = calculateMissPlace(newChild.nodeInfo, goalNode.nodeInfo);
                 NodesQueue.add(newChild);
             }

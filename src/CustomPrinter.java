@@ -17,6 +17,7 @@ public class CustomPrinter {
     }
 
     static void NodeMemberPrinter(Node node) {
+        System.out.println();
         for (int i = 0; i < node.nodeInfo.length; i++) {
             for (int j = 0; j < node.nodeInfo.length; j++) {
                 System.out.print("|" + node.nodeInfo[i][j] + "|");
