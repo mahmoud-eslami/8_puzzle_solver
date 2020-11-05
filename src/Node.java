@@ -1,18 +1,16 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Node {
     public int hOfn, gOfn;
-    public int[][] nodeInfo = {};
+    public int[][] nodeInfo = new int[3][3];
     public ArrayList<String> actionSequence;
     public CustomOrigin freeSpaceOrigin;
 
     public Node(int hOfn, int gOfn, int[][] nodeInfo, ArrayList<String> actionSequence, CustomOrigin freeSpaceOrigin) {
         this.hOfn = hOfn;
         this.gOfn = gOfn;
-        this.nodeInfo = new int[nodeInfo.length][];
-        for (int i = 0; i < nodeInfo.length; i++) {
-            this.nodeInfo[i] = nodeInfo[i].clone();
-        }
+        this.nodeInfo = nodeInfo;
         this.actionSequence = actionSequence;
         this.freeSpaceOrigin = freeSpaceOrigin;
     }

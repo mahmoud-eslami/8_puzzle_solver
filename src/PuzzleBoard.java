@@ -12,14 +12,17 @@ public class PuzzleBoard {
 
         PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(1200, (a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
 
-        Node fatherNode = initialNode;
+        Node fatherNode = new Node(initialNode.hOfn, initialNode.gOfn, initialNode.nodeInfo, initialNode.actionSequence,
+                initialNode.freeSpaceOrigin);
         fatherNode.hOfn = calculateMissPlace(initialNode.nodeInfo, goalNode.nodeInfo);
+        fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
         NodesQueue.add(fatherNode);
 
         boolean queueIsNotEmpty = !NodesQueue.isEmpty();
         while (queueIsNotEmpty) {
             Node smallestChild = NodesQueue.poll();
-            System.out.println(smallestChild.actionSequence);
+            // System.out.println(smallestChild.nodeInfo);
+            // CustomPrinter.NodeMemberPrinter(smallestChild);
 
             if (smallestChild.hOfn == 0) {
                 CustomPrinter.NodeMemberPrinter(smallestChild);
@@ -29,35 +32,50 @@ public class PuzzleBoard {
             }
 
             for (int i = 0; i < movementType.length; i++) {
-                System.out.println("wave : " + i);
                 switch (movementType[i]) {
                     case "U":
                         if (smallestChild.freeSpaceOrigin.i > 0) {
+                            System.out.println("up");
+
                             Node upMoveChild = Movement.up(smallestChild, goalNode);
                             upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(upMoveChild);
+                            CustomPrinter.NodeMemberPrinter(upMoveChild);
+
                         }
 
                         break;
                     case "D":
                         if (smallestChild.freeSpaceOrigin.i < 2) {
+                            System.out.println("down");
+
                             Node downMoveChild = Movement.down(smallestChild, goalNode);
                             downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(downMoveChild);
+                            CustomPrinter.NodeMemberPrinter(downMoveChild);
+
                         }
                         break;
                     case "L":
                         if (smallestChild.freeSpaceOrigin.j > 0) {
+                            System.out.println("left");
+
                             Node leftMoveChild = Movement.left(smallestChild, goalNode);
                             leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(leftMoveChild);
+                            CustomPrinter.NodeMemberPrinter(leftMoveChild);
+
                         }
                         break;
                     case "R":
                         if (smallestChild.freeSpaceOrigin.j < 2) {
+                            System.out.println("right");
+
                             Node rightMoveChild = Movement.right(smallestChild, goalNode);
                             rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(rightMoveChild);
+                            CustomPrinter.NodeMemberPrinter(rightMoveChild);
+
                         }
                         break;
                 }
