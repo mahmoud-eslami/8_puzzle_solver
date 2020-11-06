@@ -8,6 +8,7 @@ public class PuzzleBoard {
 
         System.out.println("Wait to solve ...");
         System.out.println("huristic : " + huristic);
+        int checkedState = 0;
 
         String[] movementType = { "U", "D", "L", "R" };
 
@@ -24,6 +25,7 @@ public class PuzzleBoard {
 
         boolean queueIsNotEmpty = !NodesQueue.isEmpty();
         while (queueIsNotEmpty) {
+            checkedState++;
             Node smallestChild = NodesQueue.poll();
 
             // System.out.println(smallestChild.nodeInfo);
@@ -33,6 +35,7 @@ public class PuzzleBoard {
                 CustomPrinter.NodeMemberPrinter(smallestChild);
                 CustomPrinter.printAactionSequnce(smallestChild);
                 CustomPrinter.printNodeInformation(smallestChild);
+                System.out.println(checkedState);
                 return;
             }
 
