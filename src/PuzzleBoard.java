@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public class PuzzleBoard {
 
-    public static void SolvePuzzle(Node initialNode, Node goalNode) throws Exception{
+    public static void SolvePuzzle(Node initialNode, Node goalNode,Node.SolveHuristic huristic) throws Exception{
 
         System.out.println("Wait to solve ...");
 
@@ -35,7 +35,7 @@ public class PuzzleBoard {
                 switch (movementType[i]) {
                     case "U":
                         if (smallestChild.freeSpaceOrigin.i > 0) {
-                            Node upMoveChild = Movement.up(smallestChild.clone(), goalNode);
+                            Node upMoveChild = Movement.up(smallestChild.clone(), goalNode,huristic);
                             upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(upMoveChild);
                         }
@@ -43,21 +43,21 @@ public class PuzzleBoard {
                         break;
                     case "D":
                         if (smallestChild.freeSpaceOrigin.i < 2) {
-                            Node downMoveChild = Movement.down(smallestChild.clone(), goalNode);
+                            Node downMoveChild = Movement.down(smallestChild.clone(), goalNode,huristic);
                             downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(downMoveChild);
                         }
                         break;
                     case "L":
                         if (smallestChild.freeSpaceOrigin.j > 0) {
-                            Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode);
+                            Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode,huristic);
                             leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(leftMoveChild);
                         }
                         break;
                     case "R":
                         if (smallestChild.freeSpaceOrigin.j < 2) {
-                            Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode);
+                            Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode,huristic);
                             rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(rightMoveChild);
                         }
