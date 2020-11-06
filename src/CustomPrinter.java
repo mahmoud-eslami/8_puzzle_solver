@@ -7,15 +7,6 @@ public class CustomPrinter {
         System.out.println();
     }
 
-    static void gameTutorial() {
-        System.out.println();
-        System.out.println("**********  Game Tutorial  ***********");
-        System.out.println("- please start number of oprateion :");
-        System.out.println("1 - start game use a test puzzle .");
-        System.out.println("2 - start game enter puzzle .");
-        System.out.println();
-    }
-
     static void NodeMemberPrinter(Node node) {
         System.out.println();
         for (int i = 0; i < node.nodeInfo.length; i++) {

@@ -4,9 +4,10 @@ import java.util.PriorityQueue;
 
 public class PuzzleBoard {
 
-    public static void SolvePuzzle(Node initialNode, Node goalNode,Node.SolveHuristic huristic) throws Exception{
+    public static void SolvePuzzle(Node initialNode, Node goalNode, Node.SolveHuristic huristic) throws Exception {
 
         System.out.println("Wait to solve ...");
+        System.out.println("huristic : " + huristic);
 
         String[] movementType = { "U", "D", "L", "R" };
 
@@ -35,7 +36,7 @@ public class PuzzleBoard {
                 switch (movementType[i]) {
                     case "U":
                         if (smallestChild.freeSpaceOrigin.i > 0) {
-                            Node upMoveChild = Movement.up(smallestChild.clone(), goalNode,huristic);
+                            Node upMoveChild = Movement.up(smallestChild.clone(), goalNode, huristic);
                             upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(upMoveChild);
                         }
@@ -43,21 +44,21 @@ public class PuzzleBoard {
                         break;
                     case "D":
                         if (smallestChild.freeSpaceOrigin.i < 2) {
-                            Node downMoveChild = Movement.down(smallestChild.clone(), goalNode,huristic);
+                            Node downMoveChild = Movement.down(smallestChild.clone(), goalNode, huristic);
                             downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(downMoveChild);
                         }
                         break;
                     case "L":
                         if (smallestChild.freeSpaceOrigin.j > 0) {
-                            Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode,huristic);
+                            Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode, huristic);
                             leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(leftMoveChild);
                         }
                         break;
                     case "R":
                         if (smallestChild.freeSpaceOrigin.j < 2) {
-                            Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode,huristic);
+                            Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode, huristic);
                             rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
                             NodesQueue.add(rightMoveChild);
                         }
@@ -103,8 +104,17 @@ public class PuzzleBoard {
         return missPlace;
     }
 
-    public int calculateManhattanDIstance(Node initialNode, Node goalNode) {
-        return 2;
+    public static int calculateManhattanDIstance(Node initialNode, Node goalNode) {
+        CustomOrigin currentTileOrigin;
+        CustomOrigin goalTileOrigin;
+        int distance,totalDistance = 0;
+        for (int i = 0; i < 9; i++) {
+			currentTileOrigin = initialNode.calculateTilePosition(i);
+			goalTileOrigin = goalNode.calculateTilePosition(i);
+			distance = Math.abs(currentTileOrigin.i - goalTileOrigin.i) + Math.abs(currentTileOrigin.j - goalTileOrigin.j);
+			totalDistance += distance;
+		}
+        return totalDistance;
     }
 
     public boolean checkState(Node initialNode, Node goalNode) {

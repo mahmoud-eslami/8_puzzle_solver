@@ -11,6 +11,8 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDIstance(tempNode, goalNode);
+
         }
 
         tempNode.actionSequence.add("U");
@@ -30,6 +32,8 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDIstance(tempNode, goalNode);
+
         }
         tempNode.actionSequence.add("D");
         tempNode.gOfn += 1;
@@ -48,6 +52,8 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDIstance(tempNode, goalNode);
+
         }
         tempNode.actionSequence.add("L");
         tempNode.gOfn += 1;
@@ -66,6 +72,8 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDIstance(tempNode, goalNode);
+
         }
         tempNode.actionSequence.add("R");
         tempNode.gOfn += 1;
