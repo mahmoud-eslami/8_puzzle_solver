@@ -20,7 +20,7 @@ public class App {
         PuzzleBoard.SolvePuzzle(initialNode, goalNode,Node.SolveHuristic.MANHATTAN_DISTANCE);
         } else {
         System.out.println();
-        System.out.println("Can't solve this puzzle ! becuase invention is odd :(");
+        System.out.println("Can't solve this puzzle ! becuase inversion is odd :(");
         }
     }
 }
