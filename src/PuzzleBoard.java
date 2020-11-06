@@ -14,7 +14,11 @@ public class PuzzleBoard {
         PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(800, (a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
 
         Node fatherNode = initialNode.clone();
-        fatherNode.hOfn = calculateMissPlace(fatherNode.nodeInfo, goalNode.nodeInfo);
+        if (huristic == Node.SolveHuristic.MISS_PLACE) {
+            fatherNode.hOfn = calculateMissPlace(fatherNode.nodeInfo, goalNode.nodeInfo);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+            fatherNode.hOfn = calculateManhattanDIstance(fatherNode, goalNode);
+        }
         fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
         NodesQueue.add(fatherNode);
 
@@ -37,7 +41,11 @@ public class PuzzleBoard {
                     case "U":
                         if (smallestChild.freeSpaceOrigin.i > 0) {
                             Node upMoveChild = Movement.up(smallestChild.clone(), goalNode, huristic);
-                            upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
+                            if (huristic == Node.SolveHuristic.MISS_PLACE) {
+                                upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
+                            } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+                                upMoveChild.hOfn = calculateManhattanDIstance(upMoveChild, goalNode);
+                            }
                             NodesQueue.add(upMoveChild);
                         }
 
@@ -45,21 +53,35 @@ public class PuzzleBoard {
                     case "D":
                         if (smallestChild.freeSpaceOrigin.i < 2) {
                             Node downMoveChild = Movement.down(smallestChild.clone(), goalNode, huristic);
-                            downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
+                            if (huristic == Node.SolveHuristic.MISS_PLACE) {
+                                downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
+                            } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+                                downMoveChild.hOfn = calculateManhattanDIstance(downMoveChild, goalNode);
+                            }
                             NodesQueue.add(downMoveChild);
                         }
                         break;
                     case "L":
                         if (smallestChild.freeSpaceOrigin.j > 0) {
                             Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode, huristic);
-                            leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
+                            if (huristic == Node.SolveHuristic.MISS_PLACE) {
+                                leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
+                            } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+                                leftMoveChild.hOfn = calculateManhattanDIstance(leftMoveChild, goalNode);
+                            }
                             NodesQueue.add(leftMoveChild);
                         }
                         break;
                     case "R":
                         if (smallestChild.freeSpaceOrigin.j < 2) {
                             Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode, huristic);
-                            rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
+                            if (huristic == Node.SolveHuristic.MISS_PLACE) {
+                                rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
+
+                            } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
+                                rightMoveChild.hOfn = calculateManhattanDIstance(rightMoveChild, goalNode);
+
+                            }
                             NodesQueue.add(rightMoveChild);
                         }
                         break;
@@ -107,13 +129,14 @@ public class PuzzleBoard {
     public static int calculateManhattanDIstance(Node initialNode, Node goalNode) {
         CustomOrigin currentTileOrigin;
         CustomOrigin goalTileOrigin;
-        int distance,totalDistance = 0;
+        int distance, totalDistance = 0;
         for (int i = 0; i < 9; i++) {
-			currentTileOrigin = initialNode.calculateTilePosition(i);
-			goalTileOrigin = goalNode.calculateTilePosition(i);
-			distance = Math.abs(currentTileOrigin.i - goalTileOrigin.i) + Math.abs(currentTileOrigin.j - goalTileOrigin.j);
-			totalDistance += distance;
-		}
+            currentTileOrigin = initialNode.calculateTilePosition(i);
+            goalTileOrigin = goalNode.calculateTilePosition(i);
+            distance = Math.abs(currentTileOrigin.i - goalTileOrigin.i)
+                    + Math.abs(currentTileOrigin.j - goalTileOrigin.j);
+            totalDistance += distance;
+        }
         return totalDistance;
     }
 
