@@ -12,13 +12,13 @@ public class PuzzleBoard {
 
         String[] movementType = { "U", "D", "L", "R" };
 
-        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(800, (a, b) -> (a.hOfn + a.gOfn) - (b.hOfn + b.gOfn));
+        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(800, (a, b) -> Double.compare((a.hOfn + a.gOfn), (b.hOfn + b.gOfn)));
 
         Node fatherNode = initialNode.clone();
         if (huristic == Node.SolveHuristic.MISS_PLACE) {
             fatherNode.hOfn = calculateMissPlace(fatherNode.nodeInfo, goalNode.nodeInfo);
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-            fatherNode.hOfn = calculateManhattanDIstance(fatherNode, goalNode);
+            fatherNode.hOfn = calculateManhattanDistance(fatherNode, goalNode);
         }
         fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
         NodesQueue.add(fatherNode);
@@ -47,7 +47,9 @@ public class PuzzleBoard {
                             if (huristic == Node.SolveHuristic.MISS_PLACE) {
                                 upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
                             } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-                                upMoveChild.hOfn = calculateManhattanDIstance(upMoveChild, goalNode);
+                                upMoveChild.hOfn = calculateManhattanDistance(upMoveChild, goalNode);
+                            } else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
+                                upMoveChild.hOfn = calculateManhattanDistance(upMoveChild, goalNode) / calculateSequencedSpace(upMoveChild);
                             }
                             NodesQueue.add(upMoveChild);
                         }
@@ -59,7 +61,9 @@ public class PuzzleBoard {
                             if (huristic == Node.SolveHuristic.MISS_PLACE) {
                                 downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
                             } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-                                downMoveChild.hOfn = calculateManhattanDIstance(downMoveChild, goalNode);
+                                downMoveChild.hOfn = calculateManhattanDistance(downMoveChild, goalNode);
+                            }else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
+                                downMoveChild.hOfn = calculateManhattanDistance(downMoveChild, goalNode) / calculateSequencedSpace(downMoveChild);
                             }
                             NodesQueue.add(downMoveChild);
                         }
@@ -70,7 +74,9 @@ public class PuzzleBoard {
                             if (huristic == Node.SolveHuristic.MISS_PLACE) {
                                 leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
                             } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-                                leftMoveChild.hOfn = calculateManhattanDIstance(leftMoveChild, goalNode);
+                                leftMoveChild.hOfn = calculateManhattanDistance(leftMoveChild, goalNode);
+                            }else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
+                                leftMoveChild.hOfn = calculateManhattanDistance(leftMoveChild, goalNode) / calculateSequencedSpace(leftMoveChild);
                             }
                             NodesQueue.add(leftMoveChild);
                         }
@@ -82,8 +88,10 @@ public class PuzzleBoard {
                                 rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
 
                             } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-                                rightMoveChild.hOfn = calculateManhattanDIstance(rightMoveChild, goalNode);
+                                rightMoveChild.hOfn = calculateManhattanDistance(rightMoveChild, goalNode);
 
+                            } else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
+                                rightMoveChild.hOfn = calculateManhattanDistance(rightMoveChild, goalNode) / calculateSequencedSpace(rightMoveChild);
                             }
                             NodesQueue.add(rightMoveChild);
                         }
@@ -117,8 +125,8 @@ public class PuzzleBoard {
         return (counter % 2 == 0);
     }
 
-    public static int calculateMissPlace(int[][] initialNode, int[][] goalNode) {
-        int missPlace = 0;
+    public static double calculateMissPlace(int[][] initialNode, int[][] goalNode) {
+        double missPlace = 0;
         for (int i = 0; i < initialNode.length; i++) {
             for (int j = 0; j < initialNode[i].length; j++) {
                 if (initialNode[i][j] != goalNode[i][j]) {
@@ -129,10 +137,10 @@ public class PuzzleBoard {
         return missPlace;
     }
 
-    public static int calculateManhattanDIstance(Node initialNode, Node goalNode) {
+    public static double calculateManhattanDistance(Node initialNode, Node goalNode) {
         CustomOrigin currentTileOrigin;
         CustomOrigin goalTileOrigin;
-        int distance, totalDistance = 0;
+        double distance, totalDistance = 0;
         for (int i = 0; i < 9; i++) {
             currentTileOrigin = initialNode.calculateTilePosition(i);
             goalTileOrigin = goalNode.calculateTilePosition(i);
@@ -141,6 +149,25 @@ public class PuzzleBoard {
             totalDistance += distance;
         }
         return totalDistance;
+    }
+
+    public static double calculateSequencedSpace(Node initialNode){
+        double sequencedSpace = 0.0;
+        ArrayList<Integer> allNumbers = new ArrayList<>();
+        for (int i = 0; i < initialNode.nodeInfo.length; i++) {
+            for (int j = 0; j < initialNode.nodeInfo[i].length; j++) {
+                allNumbers.add(initialNode.nodeInfo[i][j]);
+            }
+        }
+        Integer[] numberListToArray = new Integer[allNumbers.size()];
+        allNumbers.toArray(numberListToArray);
+
+        for (int i = 0; i < numberListToArray.length - 1; i++) {
+            if(numberListToArray[i] == numberListToArray[i+1] + 1){
+                sequencedSpace++;
+            }
+        }
+        return sequencedSpace;
     }
 
     public boolean checkState(Node initialNode, Node goalNode) {

@@ -11,13 +11,14 @@ public class App {
         int[][] testNodeInfo = { { 3, 6, 5 }, { 1, 7, 4 }, { 0, 2, 8 } };
         int[][] goalNodeInfo = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
         ArrayList<String> actionSequence = new ArrayList<String>();
-        Node goalNode = new Node(0, 0, goalNodeInfo, actionSequence, PuzzleBoard.findFreeSpaceOrigin(goalNodeInfo));
-        Node initialNode = new Node(PuzzleBoard.calculateMissPlace(testNodeInfo, goalNodeInfo), 0, testNodeInfo,
+        Node goalNode = new Node(0.0, 0.0, goalNodeInfo, actionSequence, PuzzleBoard.findFreeSpaceOrigin(goalNodeInfo));
+        Node initialNode = new Node(PuzzleBoard.calculateMissPlace(testNodeInfo, goalNodeInfo), 0.0, testNodeInfo,
                 actionSequence, PuzzleBoard.findFreeSpaceOrigin(testNodeInfo));
 
+                
         if (PuzzleBoard.isSolvable(initialNode)) {
         CustomPrinter.welcomeInfoPrinter();
-        PuzzleBoard.SolvePuzzle(initialNode, goalNode,Node.SolveHuristic.MANHATTAN_DISTANCE);
+        PuzzleBoard.SolvePuzzle(initialNode, goalNode,Node.SolveHuristic.MISS_PLACE);
         } else {
         System.out.println();
         System.out.println("Can't solve this puzzle ! becuase inversion is odd :(");

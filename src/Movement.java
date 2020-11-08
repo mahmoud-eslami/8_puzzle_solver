@@ -11,8 +11,10 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanDIstance(tempNode, goalNode);
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode);
 
+        } else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode) / PuzzleBoard.calculateSequencedSpace(tempNode);
         }
 
         tempNode.actionSequence.add("U");
@@ -32,8 +34,10 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanDIstance(tempNode, goalNode);
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode);
 
+        }else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode) / PuzzleBoard.calculateSequencedSpace(tempNode);
         }
         tempNode.actionSequence.add("D");
         tempNode.gOfn += 1;
@@ -52,8 +56,10 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanDIstance(tempNode, goalNode);
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode);
 
+        }else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode) / PuzzleBoard.calculateSequencedSpace(tempNode);
         }
         tempNode.actionSequence.add("L");
         tempNode.gOfn += 1;
@@ -72,8 +78,10 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateMissPlace(tempNode.nodeInfo, goalNode.nodeInfo);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanDIstance(tempNode, goalNode);
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode);
 
+        }else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
+            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode) / PuzzleBoard.calculateSequencedSpace(tempNode);
         }
         tempNode.actionSequence.add("R");
         tempNode.gOfn += 1;
