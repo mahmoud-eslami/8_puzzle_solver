@@ -3,9 +3,10 @@ import java.util.ArrayList;
 public class Node implements Cloneable {
 
     static enum SolveHuristic {
-        MISS_PLACE, MANHATTAN_DISTANCE,MANHATTAN_PER_SEQUENCE
+        MISS_PLACE, MANHATTAN_DISTANCE, MANHATTAN_PER_SEQUENCE
     }
-    public double hOfn,gOfn;
+
+    public double hOfn, gOfn;
     public int[][] nodeInfo = new int[3][3];
     public ArrayList<String> actionSequence;
     public CustomOrigin freeSpaceOrigin;
@@ -13,7 +14,8 @@ public class Node implements Cloneable {
     public Node() {
     }
 
-    public Node(Double hOfn, Double gOfn, int[][] nodeInfo, ArrayList<String> actionSequence, CustomOrigin freeSpaceOrigin) {
+    public Node(Double hOfn, Double gOfn, int[][] nodeInfo, ArrayList<String> actionSequence,
+            CustomOrigin freeSpaceOrigin) {
         this.hOfn = hOfn;
         this.gOfn = gOfn;
         this.nodeInfo = nodeInfo;
@@ -45,8 +47,7 @@ public class Node implements Cloneable {
 
     @Override
     public String toString() {
-        return "g(n) = " + gOfn + "| h(n) = " + hOfn + "| nodeMembers = " + nodeInfo + "| actionSeq = "
-                + actionSequence;
+        return "f(n)" + (gOfn + hOfn);
     }
 
     public CustomOrigin calculateTilePosition(int tile) {

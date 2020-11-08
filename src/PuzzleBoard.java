@@ -12,7 +12,8 @@ public class PuzzleBoard {
 
         String[] movementType = { "U", "D", "L", "R" };
 
-        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(800, (a, b) -> Double.compare((a.hOfn + a.gOfn), (b.hOfn + b.gOfn)));
+        PriorityQueue<Node> NodesQueue = new PriorityQueue<Node>(800,
+                (a, b) -> Double.compare((a.hOfn + a.gOfn), (b.hOfn + b.gOfn)));
 
         Node fatherNode = initialNode.clone();
         if (huristic == Node.SolveHuristic.MISS_PLACE) {
@@ -25,6 +26,7 @@ public class PuzzleBoard {
 
         boolean queueIsNotEmpty = !NodesQueue.isEmpty();
         while (queueIsNotEmpty) {
+            // System.out.println(NodesQueue);
             checkedState++;
             Node smallestChild = NodesQueue.poll();
 
@@ -48,8 +50,9 @@ public class PuzzleBoard {
                                 upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
                             } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
                                 upMoveChild.hOfn = calculateManhattanDistance(upMoveChild, goalNode);
-                            } else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
-                                upMoveChild.hOfn = calculateManhattanDistance(upMoveChild, goalNode) / calculateSequencedSpace(upMoveChild);
+                            } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
+                                upMoveChild.hOfn = calculateManhattanDistance(upMoveChild, goalNode)
+                                        / calculateSequencedSpace(upMoveChild);
                             }
                             NodesQueue.add(upMoveChild);
                         }
@@ -62,8 +65,9 @@ public class PuzzleBoard {
                                 downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
                             } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
                                 downMoveChild.hOfn = calculateManhattanDistance(downMoveChild, goalNode);
-                            }else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
-                                downMoveChild.hOfn = calculateManhattanDistance(downMoveChild, goalNode) / calculateSequencedSpace(downMoveChild);
+                            } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
+                                downMoveChild.hOfn = calculateManhattanDistance(downMoveChild, goalNode)
+                                        / calculateSequencedSpace(downMoveChild);
                             }
                             NodesQueue.add(downMoveChild);
                         }
@@ -75,8 +79,9 @@ public class PuzzleBoard {
                                 leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
                             } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
                                 leftMoveChild.hOfn = calculateManhattanDistance(leftMoveChild, goalNode);
-                            }else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
-                                leftMoveChild.hOfn = calculateManhattanDistance(leftMoveChild, goalNode) / calculateSequencedSpace(leftMoveChild);
+                            } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
+                                leftMoveChild.hOfn = calculateManhattanDistance(leftMoveChild, goalNode)
+                                        / calculateSequencedSpace(leftMoveChild);
                             }
                             NodesQueue.add(leftMoveChild);
                         }
@@ -90,8 +95,9 @@ public class PuzzleBoard {
                             } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
                                 rightMoveChild.hOfn = calculateManhattanDistance(rightMoveChild, goalNode);
 
-                            } else if(huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE){
-                                rightMoveChild.hOfn = calculateManhattanDistance(rightMoveChild, goalNode) / calculateSequencedSpace(rightMoveChild);
+                            } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
+                                rightMoveChild.hOfn = calculateManhattanDistance(rightMoveChild, goalNode)
+                                        / calculateSequencedSpace(rightMoveChild);
                             }
                             NodesQueue.add(rightMoveChild);
                         }
@@ -151,8 +157,8 @@ public class PuzzleBoard {
         return totalDistance;
     }
 
-    public static double calculateSequencedSpace(Node initialNode){
-        double sequencedSpace = 0.0;
+    public static int calculateSequencedSpace(Node initialNode) {
+        int sequencedSpace = 1;
         ArrayList<Integer> allNumbers = new ArrayList<>();
         for (int i = 0; i < initialNode.nodeInfo.length; i++) {
             for (int j = 0; j < initialNode.nodeInfo[i].length; j++) {
@@ -163,7 +169,7 @@ public class PuzzleBoard {
         allNumbers.toArray(numberListToArray);
 
         for (int i = 0; i < numberListToArray.length - 1; i++) {
-            if(numberListToArray[i] == numberListToArray[i+1] + 1){
+            if (numberListToArray[i] + 1 == numberListToArray[i + 1]) {
                 sequencedSpace++;
             }
         }
