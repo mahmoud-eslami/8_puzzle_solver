@@ -22,7 +22,8 @@ public class PuzzleBoard {
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
             fatherNode.hOfn = calculateManhattanDistance(fatherNode, goalNode);
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            double newH = Double.parseDouble(String.format("%.2f",(double)calculateManhattanDistance(fatherNode, goalNode) / calculateSequencedSpace(fatherNode)));
+            double newH = Double.parseDouble(String.format("%.2f",
+                    (double) calculateManhattanDistance(fatherNode, goalNode) / calculateSequencedSpace(fatherNode)));
             fatherNode.hOfn = newH;
         }
         fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
@@ -32,7 +33,6 @@ public class PuzzleBoard {
         while (queueIsNotEmpty) {
             checkedState++;
             Node smallestChild = NodesQueue.poll();
-
 
             if (smallestChild.hOfn == 0) {
                 CustomPrinter.NodeMemberPrinter(smallestChild);
@@ -125,19 +125,12 @@ public class PuzzleBoard {
     }
 
     public static int calculateSequencedSpace(Node initialNode) {
-        int sequencedSpace = 1;
-        ArrayList<Integer> allNumbers = new ArrayList<>();
-        for (int i = 0; i < initialNode.nodeInfo.length; i++) {
-            for (int j = 0; j < initialNode.nodeInfo[i].length; j++) {
-                allNumbers.add(initialNode.nodeInfo[i][j]);
-            }
-        }
-        Integer[] numberListToArray = new Integer[allNumbers.size()];
-        allNumbers.toArray(numberListToArray);
-
-        for (int i = 0; i < numberListToArray.length - 1; i++) {
-            if (numberListToArray[i] + 1 == numberListToArray[i + 1]) {
-                sequencedSpace++;
+        int sequencedSpace = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (initialNode.nodeInfo[i][j] + 1 == initialNode.nodeInfo[i][j + 1]) {
+                    sequencedSpace++;
+                }
             }
         }
         return sequencedSpace;
