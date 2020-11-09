@@ -47,7 +47,7 @@ public class Node implements Cloneable {
 
     @Override
     public String toString() {
-        return "f(n)" + (gOfn + hOfn);
+        return "f(n) = " + (gOfn + hOfn);
     }
 
     public CustomOrigin calculateTilePosition(int tile) {

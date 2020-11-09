@@ -14,8 +14,8 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode)
-                    / PuzzleBoard.calculateSequencedSpace(tempNode);
+            double newH = Double.parseDouble(String.format("%.2f",(double)PuzzleBoard.calculateManhattanDistance(tempNode, goalNode) / PuzzleBoard.calculateSequencedSpace(tempNode)));
+            tempNode.hOfn = newH;
         }
 
         tempNode.actionSequence.add("U");
@@ -38,8 +38,8 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode)
-                    / PuzzleBoard.calculateSequencedSpace(tempNode);
+            double newH = Double.parseDouble(String.format("%.2f",(double)PuzzleBoard.calculateManhattanDistance(tempNode, goalNode) / PuzzleBoard.calculateSequencedSpace(tempNode)));
+            tempNode.hOfn = newH;
         }
         tempNode.actionSequence.add("D");
         tempNode.gOfn += 1;
@@ -61,8 +61,8 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode)
-                    / PuzzleBoard.calculateSequencedSpace(tempNode);
+            double newH = Double.parseDouble(String.format("%.2f",(double)PuzzleBoard.calculateManhattanDistance(tempNode, goalNode) / PuzzleBoard.calculateSequencedSpace(tempNode)));
+            tempNode.hOfn = newH;
         }
         tempNode.actionSequence.add("L");
         tempNode.gOfn += 1;
@@ -84,8 +84,8 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanDistance(tempNode, goalNode)
-                    / PuzzleBoard.calculateSequencedSpace(tempNode);
+            double newH = Double.parseDouble(String.format("%.2f",(double)PuzzleBoard.calculateManhattanDistance(tempNode, goalNode) / PuzzleBoard.calculateSequencedSpace(tempNode)));
+            tempNode.hOfn = newH;
         }
         tempNode.actionSequence.add("R");
         tempNode.gOfn += 1;
