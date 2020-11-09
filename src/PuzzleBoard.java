@@ -125,7 +125,7 @@ public class PuzzleBoard {
     }
 
     public static int calculateSequencedSpace(Node initialNode) {
-        int sequencedSpace = 0;
+        int sequencedSpace = 1;
         ArrayList<Integer> allNumbers = new ArrayList<>();
         for (int i = 0; i < initialNode.nodeInfo.length; i++) {
             for (int j = 0; j < initialNode.nodeInfo[i].length; j++) {
