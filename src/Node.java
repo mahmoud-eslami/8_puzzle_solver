@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Node implements Cloneable {
 
     static enum SolveHuristic {
-        MISS_PLACE, MANHATTAN_DISTANCE, MANHATTAN_PER_SEQUENCE
+        MISS_PLACE, MANHATTAN_DISTANCE, MANHATTAN_PER_SEQUENCE , MANHATTAN_PER_SEQUENCE_POWER
     }
 
     public double hOfn, gOfn;

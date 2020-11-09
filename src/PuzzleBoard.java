@@ -1,4 +1,3 @@
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -18,13 +17,12 @@ public class PuzzleBoard {
 
         Node fatherNode = initialNode.clone();
         if (huristic == Node.SolveHuristic.MISS_PLACE) {
-            fatherNode.hOfn = calculateMissPlace(fatherNode.nodeInfo, goalNode.nodeInfo);
+            fatherNode.hOfn = calculateMissPlaceHeuristic(fatherNode.nodeInfo, goalNode.nodeInfo);
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-            fatherNode.hOfn = calculateManhattanDistance(fatherNode, goalNode);
+            fatherNode.hOfn = calculateManhattanDistanceHeuristic(fatherNode, goalNode);
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            double newH = Double.parseDouble(String.format("%.2f",
-                    (double) calculateManhattanDistance(fatherNode, goalNode) / calculateSequencedSpace(fatherNode)));
-            fatherNode.hOfn = newH;
+            fatherNode.hOfn = calculateManhattanPerSequencedHeuristic(
+                    calculateManhattanDistanceHeuristic(fatherNode, goalNode), calculateSequencedSpace(fatherNode));
         }
         fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
         NodesQueue.add(fatherNode);
@@ -98,7 +96,7 @@ public class PuzzleBoard {
         return (counter % 2 == 0);
     }
 
-    public static double calculateMissPlace(int[][] initialNode, int[][] goalNode) {
+    public static double calculateMissPlaceHeuristic(int[][] initialNode, int[][] goalNode) {
         double missPlace = 0;
         for (int i = 0; i < initialNode.length; i++) {
             for (int j = 0; j < initialNode[i].length; j++) {
@@ -110,7 +108,7 @@ public class PuzzleBoard {
         return missPlace;
     }
 
-    public static double calculateManhattanDistance(Node initialNode, Node goalNode) {
+    public static double calculateManhattanDistanceHeuristic(Node initialNode, Node goalNode) {
         CustomOrigin currentTileOrigin;
         CustomOrigin goalTileOrigin;
         double distance, totalDistance = 0;
@@ -122,6 +120,14 @@ public class PuzzleBoard {
             totalDistance += distance;
         }
         return totalDistance;
+    }
+
+    public static double calculateManhattanPerSequencedHeuristic(double manhattan_distance, int sequenceSpace) {
+        return Double.parseDouble(String.format("%.2f", (double)manhattan_distance / sequenceSpace));
+    }
+
+    public static double calculateManhattanPerSequenceWithPowerHeuristic(double manhattan_distance, int sequenceSpace) {
+        return Double.parseDouble(String.format("%.2f", (double)manhattan_distance / sequenceSpace));
     }
 
     public static int calculateSequencedSpace(Node initialNode) {
