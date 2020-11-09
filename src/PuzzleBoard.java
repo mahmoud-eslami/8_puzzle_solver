@@ -21,14 +21,19 @@ public class PuzzleBoard {
         } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
             fatherNode.hOfn = calculateManhattanDistanceHeuristic(fatherNode, goalNode);
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            fatherNode.hOfn = calculateManhattanPerSequencedHeuristic(
-                    calculateManhattanDistanceHeuristic(fatherNode, goalNode), calculateSequencedSpace(fatherNode));
+            fatherNode.hOfn = calculateManhattanPerSequencedHeuristic(fatherNode, goalNode);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE_POWER) {
+            fatherNode.hOfn = calculateManhattanPerSequenceWithPowerHeuristic(fatherNode, goalNode);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_LINEAR_SEQUENCE) {
+            fatherNode.hOfn = calculationManhattanLinearSequenceHeuristic(initialNode, goalNode);
         }
         fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
         NodesQueue.add(fatherNode);
 
         boolean queueIsNotEmpty = !NodesQueue.isEmpty();
         while (queueIsNotEmpty) {
+            // System.out.println(NodesQueue);
+
             checkedState++;
             Node smallestChild = NodesQueue.poll();
 
@@ -122,16 +127,30 @@ public class PuzzleBoard {
         return totalDistance;
     }
 
-    public static double calculateManhattanPerSequencedHeuristic(double manhattan_distance, int sequenceSpace) {
-        return Double.parseDouble(String.format("%.2f", (double)manhattan_distance / sequenceSpace));
+    public static double calculateManhattanPerSequencedHeuristic(Node initialNode, Node goalNode) {
+        double manhattan_distance = calculateManhattanDistanceHeuristic(initialNode, goalNode);
+        double sequenceSpace = calculateSequencedSpace(initialNode);
+        double count = manhattan_distance / sequenceSpace;
+        return Double.parseDouble(String.format("%.2f", count));
     }
 
-    public static double calculateManhattanPerSequenceWithPowerHeuristic(double manhattan_distance, int sequenceSpace) {
-        return Double.parseDouble(String.format("%.2f", (double)manhattan_distance / sequenceSpace));
+    public static double calculateManhattanPerSequenceWithPowerHeuristic(Node initialNode, Node goalNode) {
+        double manhattan_distance = calculateManhattanDistanceHeuristic(initialNode, goalNode);
+        double sequenceSpace = calculateSequencedSpace(initialNode);
+        double poweredSequence = Math.pow(sequenceSpace, 0.1);
+        double count = manhattan_distance / poweredSequence;
+        return Double.parseDouble(String.format("%.2f", count));
+    }
+
+    public static double calculationManhattanLinearSequenceHeuristic(Node initialNode, Node goalNode) {
+        double manhattan_distance = calculateManhattanDistanceHeuristic(initialNode, goalNode);
+        double sequenceSpace = calculateSequencedSpace(initialNode);
+        double count = manhattan_distance - (0.4 * sequenceSpace);
+        return Double.parseDouble(String.format("%.2f", count));
     }
 
     public static int calculateSequencedSpace(Node initialNode) {
-        int sequencedSpace = 0;
+        int sequencedSpace = 1;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
                 if (initialNode.nodeInfo[i][j] + 1 == initialNode.nodeInfo[i][j + 1]) {

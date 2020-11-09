@@ -14,9 +14,14 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateManhattanDistanceHeuristic(tempNode, goalNode);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequencedHeuristic(
-                    PuzzleBoard.calculateManhattanDistanceHeuristic(tempNode, goalNode),
-                    PuzzleBoard.calculateSequencedSpace(tempNode));
+            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequencedHeuristic(tempNode, goalNode);
+
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE_POWER) {
+            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequenceWithPowerHeuristic(tempNode, goalNode);
+
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_LINEAR_SEQUENCE) {
+            tempNode.hOfn = PuzzleBoard.calculationManhattanLinearSequenceHeuristic(initialNode, goalNode);
+
         }
 
         tempNode.actionSequence.add("U");
@@ -39,9 +44,12 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateManhattanDistanceHeuristic(tempNode, goalNode);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequencedHeuristic(
-                    PuzzleBoard.calculateManhattanDistanceHeuristic(tempNode, goalNode),
-                    PuzzleBoard.calculateSequencedSpace(tempNode));
+            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequencedHeuristic(tempNode, goalNode);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE_POWER) {
+            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequenceWithPowerHeuristic(tempNode, goalNode);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_LINEAR_SEQUENCE) {
+            tempNode.hOfn = PuzzleBoard.calculationManhattanLinearSequenceHeuristic(initialNode, goalNode);
+
         }
         tempNode.actionSequence.add("D");
         tempNode.gOfn += 1;
@@ -63,9 +71,12 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateManhattanDistanceHeuristic(tempNode, goalNode);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequencedHeuristic(
-                    PuzzleBoard.calculateManhattanDistanceHeuristic(tempNode, goalNode),
-                    PuzzleBoard.calculateSequencedSpace(tempNode));
+            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequencedHeuristic(tempNode, goalNode);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE_POWER) {
+            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequenceWithPowerHeuristic(tempNode, goalNode);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_LINEAR_SEQUENCE) {
+            tempNode.hOfn = PuzzleBoard.calculationManhattanLinearSequenceHeuristic(initialNode, goalNode);
+
         }
         tempNode.actionSequence.add("L");
         tempNode.gOfn += 1;
@@ -87,9 +98,12 @@ public class Movement {
             tempNode.hOfn = PuzzleBoard.calculateManhattanDistanceHeuristic(tempNode, goalNode);
 
         } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequencedHeuristic(
-                    PuzzleBoard.calculateManhattanDistanceHeuristic(tempNode, goalNode),
-                    PuzzleBoard.calculateSequencedSpace(tempNode));
+            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequencedHeuristic(tempNode, goalNode);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE_POWER) {
+            tempNode.hOfn = PuzzleBoard.calculateManhattanPerSequenceWithPowerHeuristic(tempNode, goalNode);
+        } else if (huristic == Node.SolveHuristic.MANHATTAN_LINEAR_SEQUENCE) {
+            tempNode.hOfn = PuzzleBoard.calculationManhattanLinearSequenceHeuristic(initialNode, goalNode);
+
         }
         tempNode.actionSequence.add("R");
         tempNode.gOfn += 1;

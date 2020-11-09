@@ -15,16 +15,25 @@ public class App {
         // }
         // }
 
-        int[][] userNodeInfo = { { 5, 8, 0 }, { 1, 3, 6 }, { 2, 7, 4 } };
+        int[][] userNodeInfo = { { 2, 3, 0 }, { 1, 5, 6 }, { 4, 7, 8 } };  //easy
+        // int[][] userNodeInfo = { { 8, 1, 3 }, { 4, 0, 2 }, { 7, 6, 5 } }; //medium 
+        // int[][] userNodeInfo = { { 8, 0, 4 }, { 2, 5, 6 }, { 3, 1, 7 } }; //hard
         int[][] goalNodeInfo = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
         ArrayList<String> actionSequence = new ArrayList<String>();
         Node goalNode = new Node(0.0, 0.0, goalNodeInfo, actionSequence, PuzzleBoard.findFreeSpaceOrigin(goalNodeInfo));
         Node initialNode = new Node(PuzzleBoard.calculateMissPlaceHeuristic(userNodeInfo, goalNodeInfo), 0.0,
                 userNodeInfo, actionSequence, PuzzleBoard.findFreeSpaceOrigin(userNodeInfo));
 
+                // log calculation heuristic
+        // System.out.println(PuzzleBoard.calculateMissPlaceHeuristic(initialNode.nodeInfo, goalNode.nodeInfo));
+        // System.out.println(PuzzleBoard.calculateManhattanDistanceHeuristic(initialNode, goalNode));
+        // System.out.println(PuzzleBoard.calculateManhattanPerSequencedHeuristic(initialNode, goalNode));
+        // System.out.println(PuzzleBoard.calculateManhattanPerSequenceWithPowerHeuristic(initialNode, goalNode));
+
+
         if (PuzzleBoard.isSolvable(initialNode)) {
             CustomPrinter.welcomeInfoPrinter();
-            PuzzleBoard.SolvePuzzle(initialNode, goalNode, Node.SolveHuristic.MISS_PLACE);
+            PuzzleBoard.SolvePuzzle(initialNode, goalNode, Node.SolveHuristic.MANHATTAN_LINEAR_SEQUENCE);
         } else {
             System.out.println();
             System.out.println("Can't solve this puzzle ! becuase inversion is odd :(");
