@@ -30,18 +30,15 @@ public class PuzzleBoard {
 
         boolean queueIsNotEmpty = !NodesQueue.isEmpty();
         while (queueIsNotEmpty) {
-            System.out.println(NodesQueue);
             checkedState++;
             Node smallestChild = NodesQueue.poll();
 
-            // System.out.println(smallestChild.nodeInfo);
-            // CustomPrinter.NodeMemberPrinter(smallestChild);
 
             if (smallestChild.hOfn == 0) {
                 CustomPrinter.NodeMemberPrinter(smallestChild);
                 CustomPrinter.printAactionSequnce(smallestChild);
                 CustomPrinter.printNodeInformation(smallestChild);
-                System.out.println(checkedState);
+                System.out.println("count of nodes : " + checkedState);
                 return;
             }
 
@@ -50,14 +47,6 @@ public class PuzzleBoard {
                     case "U":
                         if (smallestChild.freeSpaceOrigin.i > 0) {
                             Node upMoveChild = Movement.up(smallestChild.clone(), goalNode, huristic);
-                            // if (huristic == Node.SolveHuristic.MISS_PLACE) {
-                            //     upMoveChild.hOfn = calculateMissPlace(upMoveChild.nodeInfo, goalNode.nodeInfo);
-                            // } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-                            //     upMoveChild.hOfn = calculateManhattanDistance(upMoveChild, goalNode);
-                            // } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-                            //     double newH = Double.parseDouble(String.format("%.2f",(double)calculateManhattanDistance(upMoveChild, goalNode) / calculateSequencedSpace(upMoveChild)));
-                            //     upMoveChild.hOfn = newH;
-                            // }
                             NodesQueue.add(upMoveChild);
                         }
 
@@ -65,44 +54,18 @@ public class PuzzleBoard {
                     case "D":
                         if (smallestChild.freeSpaceOrigin.i < 2) {
                             Node downMoveChild = Movement.down(smallestChild.clone(), goalNode, huristic);
-                            // if (huristic == Node.SolveHuristic.MISS_PLACE) {
-                            //     downMoveChild.hOfn = calculateMissPlace(downMoveChild.nodeInfo, goalNode.nodeInfo);
-                            // } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-                            //     downMoveChild.hOfn = calculateManhattanDistance(downMoveChild, goalNode);
-                            // } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-                            //     double newH = Double.parseDouble(String.format("%.2f",(double)calculateManhattanDistance(downMoveChild, goalNode) / calculateSequencedSpace(downMoveChild)));
-                            //     downMoveChild.hOfn = newH;
-                            // }
                             NodesQueue.add(downMoveChild);
                         }
                         break;
                     case "L":
                         if (smallestChild.freeSpaceOrigin.j > 0) {
                             Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode, huristic);
-                            // if (huristic == Node.SolveHuristic.MISS_PLACE) {
-                            //     leftMoveChild.hOfn = calculateMissPlace(leftMoveChild.nodeInfo, goalNode.nodeInfo);
-                            // } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-                            //     leftMoveChild.hOfn = calculateManhattanDistance(leftMoveChild, goalNode);
-                            // } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-                            //     double newH = Double.parseDouble(String.format("%.2f",(double)calculateManhattanDistance(leftMoveChild, goalNode) / calculateSequencedSpace(leftMoveChild)));
-                            //     leftMoveChild.hOfn = newH;
-                            // }
                             NodesQueue.add(leftMoveChild);
                         }
                         break;
                     case "R":
                         if (smallestChild.freeSpaceOrigin.j < 2) {
                             Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode, huristic);
-                            // if (huristic == Node.SolveHuristic.MISS_PLACE) {
-                            //     rightMoveChild.hOfn = calculateMissPlace(rightMoveChild.nodeInfo, goalNode.nodeInfo);
-
-                            // } else if (huristic == Node.SolveHuristic.MANHATTAN_DISTANCE) {
-                            //     rightMoveChild.hOfn = calculateManhattanDistance(rightMoveChild, goalNode);
-
-                            // } else if (huristic == Node.SolveHuristic.MANHATTAN_PER_SEQUENCE) {
-                            //     double newH = Double.parseDouble(String.format("%.2f",(double)calculateManhattanDistance(rightMoveChild, goalNode) / calculateSequencedSpace(rightMoveChild)));
-                            //     rightMoveChild.hOfn = newH;
-                            // }
                             NodesQueue.add(rightMoveChild);
                         }
                         break;
@@ -162,7 +125,7 @@ public class PuzzleBoard {
     }
 
     public static int calculateSequencedSpace(Node initialNode) {
-        int sequencedSpace = 1;
+        int sequencedSpace = 0;
         ArrayList<Integer> allNumbers = new ArrayList<>();
         for (int i = 0; i < initialNode.nodeInfo.length; i++) {
             for (int j = 0; j < initialNode.nodeInfo[i].length; j++) {
