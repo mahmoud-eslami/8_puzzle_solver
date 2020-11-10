@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
+
+        final long startTime = System.nanoTime();
+
         // int[][] userNodeInfo = new int[3][3];
         // Scanner myInput = new Scanner(System.in);
         // System.out.println("notice : enter 0 instead of free space.");
@@ -15,7 +18,7 @@ public class App {
         // }
         // }
 
-        int[][] userNodeInfo = { { 2, 3, 0 }, { 1, 5, 6 }, { 4, 7, 8 } };
+        int[][] userNodeInfo = { { 8, 0, 4 }, { 2, 5, 6 }, { 3, 1, 7 } };
         int[][] goalNodeInfo = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
         ArrayList<String> actionSequence = new ArrayList<String>();
         Node goalNode = new Node(0.0, 0.0, goalNodeInfo, actionSequence, PuzzleBoard.findFreeSpaceOrigin(goalNodeInfo));
@@ -34,10 +37,13 @@ public class App {
 
         if (PuzzleBoard.isSolvable(initialNode)) {
             CustomPrinter.welcomeInfoPrinter();
-            PuzzleBoard.SolvePuzzle(initialNode, goalNode, Node.SolveHuristic.MANHATTAN_LINEAR_SEQUENCE);
+            PuzzleBoard.SolvePuzzle(initialNode, goalNode, Node.SolveHuristic.MISS_PLACE);
         } else {
             System.out.println();
             System.out.println("Can't solve this puzzle ! becuase inversion is odd :(");
         }
+
+        final long duration = System.nanoTime() - startTime;
+        System.out.println("time to solve : " + duration / 1000000 + " ms ");
     }
 }
