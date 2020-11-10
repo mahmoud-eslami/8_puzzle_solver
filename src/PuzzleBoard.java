@@ -4,6 +4,8 @@ import java.util.PriorityQueue;
 
 public class PuzzleBoard {
 
+    public static ArrayList<int[][]> globalUsedList = new ArrayList<>();
+
     public static void SolvePuzzle(Node initialNode, Node goalNode, Node.SolveHuristic huristic) throws Exception {
 
         System.out.println("Wait to solve ...");
@@ -36,6 +38,7 @@ public class PuzzleBoard {
 
             checkedState++;
             Node smallestChild = NodesQueue.poll();
+            globalUsedList.add(smallestChild.nodeInfo);
 
             if (smallestChild.hOfn == 0) {
                 CustomPrinter.NodeMemberPrinter(smallestChild);
@@ -50,26 +53,34 @@ public class PuzzleBoard {
                     case "U":
                         if (smallestChild.freeSpaceOrigin.i > 0) {
                             Node upMoveChild = Movement.up(smallestChild.clone(), goalNode, huristic);
-                            NodesQueue.add(upMoveChild);
+                            if (!globalUsedList.contains(upMoveChild.nodeInfo)) {
+                                NodesQueue.add(upMoveChild);
+                            }
                         }
 
                         break;
                     case "D":
                         if (smallestChild.freeSpaceOrigin.i < 2) {
                             Node downMoveChild = Movement.down(smallestChild.clone(), goalNode, huristic);
-                            NodesQueue.add(downMoveChild);
+                            if (!globalUsedList.contains(downMoveChild.nodeInfo)) {
+                                NodesQueue.add(downMoveChild);
+                            }
                         }
                         break;
                     case "L":
                         if (smallestChild.freeSpaceOrigin.j > 0) {
                             Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode, huristic);
-                            NodesQueue.add(leftMoveChild);
+                            if (!globalUsedList.contains(leftMoveChild.nodeInfo)) {
+                                NodesQueue.add(leftMoveChild);
+                            }
                         }
                         break;
                     case "R":
                         if (smallestChild.freeSpaceOrigin.j < 2) {
                             Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode, huristic);
-                            NodesQueue.add(rightMoveChild);
+                            if (!globalUsedList.contains(rightMoveChild.nodeInfo)) {
+                                NodesQueue.add(rightMoveChild);
+                            }
                         }
                         break;
                 }
