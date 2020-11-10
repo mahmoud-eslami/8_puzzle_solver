@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public class PuzzleBoard {
 
-    public static ArrayList<int[][]> globalUsedList = new ArrayList<>();
+    public static ArrayList<Node> globalUsedList = new ArrayList<>();
 
     public static void SolvePuzzle(Node initialNode, Node goalNode, Node.SolveHuristic huristic) throws Exception {
 
@@ -31,14 +31,13 @@ public class PuzzleBoard {
         }
         fatherNode.freeSpaceOrigin = findFreeSpaceOrigin(fatherNode.nodeInfo);
         NodesQueue.add(fatherNode);
+        globalUsedList.add(fatherNode);
 
         boolean queueIsNotEmpty = !NodesQueue.isEmpty();
         while (queueIsNotEmpty) {
-            // System.out.println(NodesQueue);
 
             checkedState++;
             Node smallestChild = NodesQueue.poll();
-            globalUsedList.add(smallestChild.nodeInfo);
 
             if (smallestChild.hOfn == 0) {
                 CustomPrinter.NodeMemberPrinter(smallestChild);
@@ -53,7 +52,8 @@ public class PuzzleBoard {
                     case "U":
                         if (smallestChild.freeSpaceOrigin.i > 0) {
                             Node upMoveChild = Movement.up(smallestChild.clone(), goalNode, huristic);
-                            if (!globalUsedList.contains(upMoveChild.nodeInfo)) {
+                            if(!childUsed(upMoveChild)){
+                                globalUsedList.add(upMoveChild);
                                 NodesQueue.add(upMoveChild);
                             }
                         }
@@ -62,7 +62,8 @@ public class PuzzleBoard {
                     case "D":
                         if (smallestChild.freeSpaceOrigin.i < 2) {
                             Node downMoveChild = Movement.down(smallestChild.clone(), goalNode, huristic);
-                            if (!globalUsedList.contains(downMoveChild.nodeInfo)) {
+                            if(!childUsed(downMoveChild)){
+                                globalUsedList.add(downMoveChild);
                                 NodesQueue.add(downMoveChild);
                             }
                         }
@@ -70,7 +71,8 @@ public class PuzzleBoard {
                     case "L":
                         if (smallestChild.freeSpaceOrigin.j > 0) {
                             Node leftMoveChild = Movement.left(smallestChild.clone(), goalNode, huristic);
-                            if (!globalUsedList.contains(leftMoveChild.nodeInfo)) {
+                            if(!childUsed(leftMoveChild)){
+                                globalUsedList.add(leftMoveChild);
                                 NodesQueue.add(leftMoveChild);
                             }
                         }
@@ -78,7 +80,8 @@ public class PuzzleBoard {
                     case "R":
                         if (smallestChild.freeSpaceOrigin.j < 2) {
                             Node rightMoveChild = Movement.right(smallestChild.clone(), goalNode, huristic);
-                            if (!globalUsedList.contains(rightMoveChild.nodeInfo)) {
+                            if(!childUsed(rightMoveChild)){
+                                globalUsedList.add(rightMoveChild);
                                 NodesQueue.add(rightMoveChild);
                             }
                         }
@@ -87,6 +90,25 @@ public class PuzzleBoard {
             }
         }
         ;
+    }
+
+    public static boolean childUsed(Node childNode) {
+        int[][] childInfo = childNode.nodeInfo;
+        for (Node node : globalUsedList) {
+            int[][] temp = node.nodeInfo;
+            boolean bool = true;
+            for (int i = 0; i < childInfo.length; i++) {
+                for (int j = 0; j < childInfo.length; j++) {
+                    if (childInfo[i][j] != temp[i][j]) {
+                        bool = false;
+                    }
+                }
+            }
+            if (bool) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean isSolvable(Node node) {
